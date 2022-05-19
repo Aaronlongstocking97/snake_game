@@ -73,7 +73,7 @@ class Game(arcade.Window):
     def update(self, delta_time):
 
         self.check_keys()
-        self.check_collisions()
+        # self.check_collisions()
         self.ship.advance()
 
         # for bullet in self.bullets:
