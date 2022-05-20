@@ -47,6 +47,8 @@ class Pong(arcade.Window):
 
         # These are used to see if the user is
         # holding down the arrow keys
+        self.holding_down = False
+        self.holding_up = False
         self.holding_left = False
         self.holding_right = False
 
@@ -84,7 +86,7 @@ class Pong(arcade.Window):
         """
 
         # Move the fruit forward one element in time
-        self.fruit.advance()
+        # self.fruit.advance()
 
         # Check to see if keys are being held, and then
         # take appropriate action
@@ -108,7 +110,7 @@ class Pong(arcade.Window):
             abs(self.fruit.center.y - self.paddle.center.y) < too_close_y and
                 self.fruit.velocity.dx > 0):
             # we are too close and moving right, this is a hit!
-            self.fruit.bounce_horizontal()
+            # self.fruit.bounce_horizontal()
             self.score += SCORE_HIT
 
     def check_miss(self):
@@ -140,11 +142,17 @@ class Pong(arcade.Window):
         Checks to see if the user is holding down an
         arrow key, and if so, takes appropriate action.
         """
-        if self.holding_left:
+        if self.holding_up:
             self.paddle.move_down()
 
-        if self.holding_right:
+        if self.holding_down:
             self.paddle.move_up()
+
+        if self.holding_left:
+            self.paddle.move_left()
+
+        if self.holding_right:
+            self.paddle.move_right()
 
     def on_key_press(self, key, key_modifiers):
         """
@@ -153,10 +161,17 @@ class Pong(arcade.Window):
         :param key: The key that was pressed
         :param key_modifiers: Things like shift, ctrl, etc
         """
-        if key == arcade.key.LEFT or key == arcade.key.DOWN:
+
+        if key == arcade.key.UP:
+            self.holding_right = True
+
+        if key == arcade.key.DOWN:
+            self.holding_right = True
+
+        if key == arcade.key.LEFT:
             self.holding_left = True
 
-        if key == arcade.key.RIGHT or key == arcade.key.UP:
+        if key == arcade.key.RIGHT:
             self.holding_right = True
 
     def on_key_release(self, key, key_modifiers):
@@ -166,10 +181,17 @@ class Pong(arcade.Window):
         :param key: The key that was pressed
         :param key_modifiers: Things like shift, ctrl, etc
         """
-        if key == arcade.key.LEFT or key == arcade.key.DOWN:
+
+        if key == arcade.key.UP:
+            self.holding_right = False
+
+        if key == arcade.key.DOWN:
+            self.holding_right = False
+
+        if key == arcade.key.LEFT:
             self.holding_left = False
 
-        if key == arcade.key.RIGHT or key == arcade.key.UP:
+        if key == arcade.key.RIGHT:
             self.holding_right = False
 
 
