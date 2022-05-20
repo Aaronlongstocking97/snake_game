@@ -41,7 +41,7 @@ class Pong(arcade.Window):
         """
         super().__init__(width, height)
 
-        self.fruit = Ball()
+        self.fruit = Fruit()
         self.paddle = Paddle()
         self.score = 0
 
@@ -93,7 +93,7 @@ class Pong(arcade.Window):
         # check for fruit at important places
         self.check_miss()
         self.check_hit()
-        self.check_bounce()
+        # self.check_bounce()
 
     def check_hit(self):
         """
@@ -121,19 +121,19 @@ class Pong(arcade.Window):
             self.score -= SCORE_MISS
             self.fruit.restart()
 
-    def check_bounce(self):
-        """
-        Checks to see if the fruit has hit the borders
-        of the screen and if so, calls its bounce methods.
-        """
-        if self.fruit.center.x < 0 and self.fruit.velocity.dx < 0:
-            self.fruit.bounce_horizontal()
+    # def check_bounce(self):
+    #     """
+    #     Checks to see if the fruit has hit the borders
+    #     of the screen and if so, calls its bounce methods.
+    #     """
+    #     if self.fruit.center.x < 0 and self.fruit.velocity.dx < 0:
+    #         self.fruit.bounce_horizontal()
 
-        if self.fruit.center.y < 0 and self.fruit.velocity.dy < 0:
-            self.fruit.bounce_vertical()
+    #     if self.fruit.center.y < 0 and self.fruit.velocity.dy < 0:
+    #         self.fruit.bounce_vertical()
 
-        if self.fruit.center.y > SCREEN_HEIGHT and self.fruit.velocity.dy > 0:
-            self.fruit.bounce_vertical()
+    #     if self.fruit.center.y > SCREEN_HEIGHT and self.fruit.velocity.dy > 0:
+    #         self.fruit.bounce_vertical()
 
     def check_keys(self):
         """

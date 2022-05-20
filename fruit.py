@@ -58,20 +58,20 @@ class Fruit:
     * on the velocity of the fruit.
     """
 
-    def bounce_horizontal(self):
+    # def bounce_horizontal(self):
 
-        self.velocity.dx *= -1
-        #self.velocity.dx = self.velocity.dx * -1
+    #     self.velocity.dx *= -1
+    #     #self.velocity.dx = self.velocity.dx * -1
 
     """
     * The fruit will move up or down based
     * on the velocity of the fruit.
     """
 
-    def bounce_vertical(self):
+    # def bounce_vertical(self):
 
-        self.velocity.dy *= -1  # If the fruit moves to close to the
-        # boundaries it will then change direction.
+    #     self.velocity.dy *= -1  # If the fruit moves to close to the
+    #     # boundaries it will then change direction.
 
     """
     * Recreates the fruit at the starting point for the
