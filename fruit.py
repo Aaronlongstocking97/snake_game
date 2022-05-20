@@ -41,8 +41,8 @@ class Fruit:
 
     def draw(self):
 
-        arcade.draw_circle_filled(
-            self.center.x, self.center.y, FRUIT_RADIUS, arcade.color.RED)
+        arcade.draw_rectangle_filled(
+            self.center.x, self.center.y, FRUIT_WIDTH, FRUIT_HEIGHT, arcade.color.RED)
 
     """
     * Controls the fruits movement within the window.
@@ -81,8 +81,8 @@ class Fruit:
     """
 
     def restart(self):
-        self.center.y = random.uniform(5, SCREEN_HEIGHT - 5)
-        self.center.x = 10
+        self.center.y = random.uniform(50, SCREEN_HEIGHT - 50)
+        self.center.x = random.uniform(50, SCREEN_WIDTH - 50)
         # uniform gives the values listed
         # self.velocity.dx = random.uniform(2, 6)
         # self.velocity.dy = random.uniform(2, 5)  # a floating point #

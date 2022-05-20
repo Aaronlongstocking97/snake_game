@@ -16,7 +16,7 @@ import arcade  # Gives the class the ability to make objects
 
 from global_p import *  # Takes in values from the global constants
 from fruit import Fruit
-from paddle import Paddle
+from snake import Snake
 
 
 class Pong(arcade.Window):
@@ -26,7 +26,7 @@ class Pong(arcade.Window):
         Point
         Velocity
         Fruit
-        Paddle
+        Snake
     This class will then call the appropriate functions of
     each of the above classes.
     You are welcome to modify anything in this class,
@@ -42,7 +42,7 @@ class Pong(arcade.Window):
         super().__init__(width, height)
 
         self.fruit = Fruit()
-        self.paddle = Paddle()
+        self.snake = Snake()
         self.score = 0
 
         # These are used to see if the user is
@@ -65,7 +65,7 @@ class Pong(arcade.Window):
 
         # draw each object
         self.fruit.draw()
-        self.paddle.draw()
+        self.snake.draw()
 
         self.draw_score()
 
@@ -99,15 +99,15 @@ class Pong(arcade.Window):
 
     def check_hit(self):
         """
-        Checks to see if the fruit has hit the paddle
+        Checks to see if the fruit has hit the snake
         and if so, calls its bounce method.
         :return:
         """
-        too_close_x = (PADDLE_WIDTH / 2) + FRUIT_RADIUS
-        too_close_y = (PADDLE_HEIGHT / 2) + FRUIT_RADIUS
+        too_close_x = (SNAKE_WIDTH / 2) + FRUIT_WIDTH
+        too_close_y = (SNAKE_HEIGHT / 2) + FRUIT_HEIGHT
 
-        if (abs(self.fruit.center.x - self.paddle.center.x) < too_close_x and
-            abs(self.fruit.center.y - self.paddle.center.y) < too_close_y and
+        if (abs(self.fruit.center.x - self.snake.center.x) < too_close_x and
+            abs(self.fruit.center.y - self.snake.center.y) < too_close_y and
                 self.fruit.velocity.dx > 0):
             # we are too close and moving right, this is a hit!
             # self.fruit.bounce_horizontal()
@@ -115,7 +115,7 @@ class Pong(arcade.Window):
 
     def check_miss(self):
         """
-        Checks to see if the fruit went past the paddle
+        Checks to see if the fruit went past the snake
         and if so, restarts it.
         """
         if self.fruit.center.x > SCREEN_WIDTH:
@@ -143,16 +143,16 @@ class Pong(arcade.Window):
         arrow key, and if so, takes appropriate action.
         """
         if self.holding_up:
-            self.paddle.move_down()
+            self.snake.move_up()
 
         if self.holding_down:
-            self.paddle.move_up()
+            self.snake.move_down()
 
         if self.holding_left:
-            self.paddle.move_left()
+            self.snake.move_left()
 
         if self.holding_right:
-            self.paddle.move_right()
+            self.snake.move_right()
 
     def on_key_press(self, key, key_modifiers):
         """
@@ -163,10 +163,10 @@ class Pong(arcade.Window):
         """
 
         if key == arcade.key.UP:
-            self.holding_right = True
+            self.holding_up = True
 
         if key == arcade.key.DOWN:
-            self.holding_right = True
+            self.holding_down = True
 
         if key == arcade.key.LEFT:
             self.holding_left = True
@@ -183,10 +183,10 @@ class Pong(arcade.Window):
         """
 
         if key == arcade.key.UP:
-            self.holding_right = False
+            self.holding_up = False
 
         if key == arcade.key.DOWN:
-            self.holding_right = False
+            self.holding_down = False
 
         if key == arcade.key.LEFT:
             self.holding_left = False
