@@ -35,6 +35,8 @@ from small_asteroid import SmallAsteroid
 * :param height: Screen height
 """
 
+# SMOKY_BLACK
+
 
 class Game(arcade.Window):
 
