@@ -18,7 +18,7 @@ import random
 from global_p import *
 import arcade
 from point_p import Point
-from velocity_p import Velocity
+
 
 """
 * This class will take in values from multiple
@@ -32,7 +32,7 @@ class Fruit:
     def __init__(self):
 
         self.center = Point()
-        self.velocity = Velocity()
+        # self.velocity = Velocity()
         self.restart()
 
     """
@@ -48,10 +48,10 @@ class Fruit:
     * Controls the fruits movement within the window.
     """
 
-    def advance(self):
+    # def advance(self):
 
-        self.center.x += self.velocity.dx
-        self.center.y += self.velocity.dy
+    #     self.center.x += self.velocity.dx
+    #     self.center.y += self.velocity.dy
 
     """
     * The fruit will move forward or backward based
@@ -84,5 +84,5 @@ class Fruit:
         self.center.y = random.uniform(5, SCREEN_HEIGHT - 5)
         self.center.x = 10
         # uniform gives the values listed
-        self.velocity.dx = random.uniform(2, 6)
-        self.velocity.dy = random.uniform(2, 5)  # a floating point #
+        # self.velocity.dx = random.uniform(2, 6)
+        # self.velocity.dy = random.uniform(2, 5)  # a floating point #
