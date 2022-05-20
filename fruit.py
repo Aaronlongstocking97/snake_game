@@ -18,7 +18,7 @@ import random
 from global_p import *
 import arcade
 from point_p import Point
-
+# from velocity_p import Velocity
 
 """
 * This class will take in values from multiple
