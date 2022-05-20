@@ -12,10 +12,10 @@
     a window that can be interacted with.
                      
 """
-import arcade # Gives the class the ability to make objects
+import arcade  # Gives the class the ability to make objects
 
-from global_p import * # Takes in values from the global constants
-from ball import Ball
+from global_p import *  # Takes in values from the global constants
+from fruit import Ball
 from paddle import Paddle
 
 
@@ -74,7 +74,8 @@ class Pong(arcade.Window):
         score_text = "Score: {}".format(self.score)
         start_x = 10
         start_y = SCREEN_HEIGHT - 20
-        arcade.draw_text(score_text, start_x=start_x, start_y=start_y, font_size=12, color=arcade.color.NAVY_BLUE)
+        arcade.draw_text(score_text, start_x=start_x, start_y=start_y,
+                         font_size=12, color=arcade.color.NAVY_BLUE)
 
     def update(self, delta_time):
         """
@@ -104,8 +105,8 @@ class Pong(arcade.Window):
         too_close_y = (PADDLE_HEIGHT / 2) + BALL_RADIUS
 
         if (abs(self.ball.center.x - self.paddle.center.x) < too_close_x and
-                    abs(self.ball.center.y - self.paddle.center.y) < too_close_y and
-                    self.ball.velocity.dx > 0):
+            abs(self.ball.center.y - self.paddle.center.y) < too_close_y and
+                self.ball.velocity.dx > 0):
             # we are too close and moving right, this is a hit!
             self.ball.bounce_horizontal()
             self.score += SCORE_HIT
@@ -170,6 +171,7 @@ class Pong(arcade.Window):
 
         if key == arcade.key.RIGHT or key == arcade.key.UP:
             self.holding_right = False
-            
-window = Pong(SCREEN_WIDTH, SCREEN_HEIGHT) # creates the game window
-arcade.run() # Starts the actions listed to run the game
+
+
+window = Pong(SCREEN_WIDTH, SCREEN_HEIGHT)  # creates the game window
+arcade.run()  # Starts the actions listed to run the game

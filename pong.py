@@ -12,10 +12,10 @@
     a window that can be interacted with.
                      
 """
-import arcade # Gives the class the ability to make objects
+import arcade  # Gives the class the ability to make objects
 
-from global_p import * # Takes in values from the global constants
-from ball import Ball
+from global_p import *  # Takes in values from the global constants
+from fruit import Fruit
 from paddle import Paddle
 
 
@@ -25,7 +25,7 @@ class Pong(arcade.Window):
     It assumes the following classes exist:
         Point
         Velocity
-        Ball
+        Fruit
         Paddle
     This class will then call the appropriate functions of
     each of the above classes.
@@ -41,7 +41,7 @@ class Pong(arcade.Window):
         """
         super().__init__(width, height)
 
-        self.ball = Ball()
+        self.fruit = Ball()
         self.paddle = Paddle()
         self.score = 0
 
@@ -62,7 +62,7 @@ class Pong(arcade.Window):
         arcade.start_render()
 
         # draw each object
-        self.ball.draw()
+        self.fruit.draw()
         self.paddle.draw()
 
         self.draw_score()
@@ -74,7 +74,8 @@ class Pong(arcade.Window):
         score_text = "Score: {}".format(self.score)
         start_x = 10
         start_y = SCREEN_HEIGHT - 20
-        arcade.draw_text(score_text, start_x=start_x, start_y=start_y, font_size=12, color=arcade.color.NAVY_BLUE)
+        arcade.draw_text(score_text, start_x=start_x, start_y=start_y,
+                         font_size=12, color=arcade.color.NAVY_BLUE)
 
     def update(self, delta_time):
         """
@@ -82,57 +83,57 @@ class Pong(arcade.Window):
         :param delta_time: tells us how much time has actually elapsed
         """
 
-        # Move the ball forward one element in time
-        self.ball.advance()
+        # Move the fruit forward one element in time
+        self.fruit.advance()
 
         # Check to see if keys are being held, and then
         # take appropriate action
         self.check_keys()
 
-        # check for ball at important places
+        # check for fruit at important places
         self.check_miss()
         self.check_hit()
         self.check_bounce()
 
     def check_hit(self):
         """
-        Checks to see if the ball has hit the paddle
+        Checks to see if the fruit has hit the paddle
         and if so, calls its bounce method.
         :return:
         """
-        too_close_x = (PADDLE_WIDTH / 2) + BALL_RADIUS
-        too_close_y = (PADDLE_HEIGHT / 2) + BALL_RADIUS
+        too_close_x = (PADDLE_WIDTH / 2) + FRUIT_RADIUS
+        too_close_y = (PADDLE_HEIGHT / 2) + FRUIT_RADIUS
 
-        if (abs(self.ball.center.x - self.paddle.center.x) < too_close_x and
-                    abs(self.ball.center.y - self.paddle.center.y) < too_close_y and
-                    self.ball.velocity.dx > 0):
+        if (abs(self.fruit.center.x - self.paddle.center.x) < too_close_x and
+            abs(self.fruit.center.y - self.paddle.center.y) < too_close_y and
+                self.fruit.velocity.dx > 0):
             # we are too close and moving right, this is a hit!
-            self.ball.bounce_horizontal()
+            self.fruit.bounce_horizontal()
             self.score += SCORE_HIT
 
     def check_miss(self):
         """
-        Checks to see if the ball went past the paddle
+        Checks to see if the fruit went past the paddle
         and if so, restarts it.
         """
-        if self.ball.center.x > SCREEN_WIDTH:
+        if self.fruit.center.x > SCREEN_WIDTH:
             # We missed!
             self.score -= SCORE_MISS
-            self.ball.restart()
+            self.fruit.restart()
 
     def check_bounce(self):
         """
-        Checks to see if the ball has hit the borders
+        Checks to see if the fruit has hit the borders
         of the screen and if so, calls its bounce methods.
         """
-        if self.ball.center.x < 0 and self.ball.velocity.dx < 0:
-            self.ball.bounce_horizontal()
+        if self.fruit.center.x < 0 and self.fruit.velocity.dx < 0:
+            self.fruit.bounce_horizontal()
 
-        if self.ball.center.y < 0 and self.ball.velocity.dy < 0:
-            self.ball.bounce_vertical()
+        if self.fruit.center.y < 0 and self.fruit.velocity.dy < 0:
+            self.fruit.bounce_vertical()
 
-        if self.ball.center.y > SCREEN_HEIGHT and self.ball.velocity.dy > 0:
-            self.ball.bounce_vertical()
+        if self.fruit.center.y > SCREEN_HEIGHT and self.fruit.velocity.dy > 0:
+            self.fruit.bounce_vertical()
 
     def check_keys(self):
         """
@@ -170,6 +171,7 @@ class Pong(arcade.Window):
 
         if key == arcade.key.RIGHT or key == arcade.key.UP:
             self.holding_right = False
-            
-window = Pong(SCREEN_WIDTH, SCREEN_HEIGHT) # creates the game window
-arcade.run() # Starts the actions listed to run the game
+
+
+window = Pong(SCREEN_WIDTH, SCREEN_HEIGHT)  # creates the game window
+arcade.run()  # Starts the actions listed to run the game
