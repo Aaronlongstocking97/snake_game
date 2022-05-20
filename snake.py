@@ -27,8 +27,11 @@ class Snake:
 
     def __init__(self):
         self.center = Point()
-        self.center.y = SCREEN_HEIGHT - 150
-        self.center.x = SCREEN_WIDTH - 10
+        self.center.y = SCREEN_HEIGHT - 450
+        self.center.x = SCREEN_WIDTH - 600
+        # defining first 4 blocks of snake body
+        self.snake_body = [[100, 50], [90, 50], [80, 50], [70, 50]]
+        self.snake_position = [self.center.x, self.center.y]
 
     """
     * Creates the snake from an imported specific
@@ -37,8 +40,9 @@ class Snake:
 
     def draw(self):
 
-        arcade.draw_rectangle_filled(
-            self.center.x, self.center.y, SNAKE_WIDTH, SNAKE_HEIGHT, arcade.color.BLUE)
+        for pos in self.snake_body:
+            arcade.draw_rectangle_filled(
+                pos[0], pos[1], SNAKE_WIDTH, SNAKE_HEIGHT, arcade.color.BLUE)
 
     """
     * Controls the snake by setting the boundaries
@@ -46,10 +50,7 @@ class Snake:
     """
 
     def move_up(self):
-
-        if self.center.y < SCREEN_HEIGHT - (SNAKE_HEIGHT / 2):
-            # Increases the snakes speed based on the location of the snake
-            self.center.y += MOVE_AMOUNT
+        self.snake_position[1] -= 10
 
     """
     * Controls the snake by setting the boundaries
@@ -57,9 +58,7 @@ class Snake:
     """
 
     def move_down(self):
-
-        if self.center.y >= SNAKE_HEIGHT / 2:  # Snake will move halfway past the screen without being divide by
-            self.center.y -= MOVE_AMOUNT
+        self.snake_position[1] += 10
 
     """
     * Controls the snake by setting the boundaries
@@ -67,9 +66,7 @@ class Snake:
     """
 
     def move_left(self):
-
-        if self.center.x >= SNAKE_WIDTH:  # Snake will move halfway past the screen without being divide by
-            self.center.x -= MOVE_AMOUNT
+        self.snake_position[0] -= 10
 
     """
     * Controls the snake by setting the boundaries
@@ -77,7 +74,4 @@ class Snake:
     """
 
     def move_right(self):
-
-        if self.center.x < SCREEN_WIDTH - (SNAKE_WIDTH / 2):
-            # Increases the snakes speed based on the location of the snake
-            self.center.x += MOVE_AMOUNT
+        self.snake_position[0] += 10
