@@ -68,7 +68,8 @@ class Paddle:
 
     def move_left(self):
 
-        if self.center.x >= PADDLE_WIDTH / 2:  # Paddle will move halfway past the screen without being divide by
+        if self.center.x < SCREEN_WIDTH - (PADDLE_WIDTH / 2):
+            # Increases the paddles speed based on the location of the paddle
             self.center.x += MOVE_AMOUNT
 
     """
