@@ -1,8 +1,6 @@
 """
  Program:
-    CS241 Assignment 11, Asteroids Project
- Instructor:
-    Borther Macbeth
+    Asteroid Arcade Velocity
  Author:
     Aaron Jones
  Summary: 
@@ -18,6 +16,8 @@
 * This class will set the intial values that can be
 * passed into other classes.
 """
+
+
 class Velocity:
 
     def __init__(self):

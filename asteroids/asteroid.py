@@ -1,8 +1,6 @@
 """
  Program:
-    CS241 Assignment 11, Asteroids Project
- Instructor:
-    Borther Macbeth
+    Asteroid Arcade Asteroid Object
  Author:
     Aaron Jones
  Summary: 

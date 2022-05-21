@@ -1,6 +1,6 @@
 """
  Program:
-    Snake Game
+    Asteroids Game
  Author:
     Aaron Jones
  Summary:
