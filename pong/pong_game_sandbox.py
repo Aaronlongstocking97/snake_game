@@ -14,7 +14,7 @@
 """
 import arcade  # Gives the class the ability to make objects
 
-from global_p import *  # Takes in values from the global constants
+from global import *  # Takes in values from the global constants
 from fruit import Fruit
 from snake import Snake
 

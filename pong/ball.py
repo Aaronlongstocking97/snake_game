@@ -15,66 +15,74 @@
                      
 """
 import random
-from global_p import *
+from global import *
 import arcade
-from point_p import Point
-from velocity_p import Velocity
+from point import Point
+from velocity import Velocity
 
 """
 * This class will take in values from multiple
 * classes to draw, guide, and increase/decrease
 * the speed of the virtual ball.
 """
+
+
 class Ball:
-    
+
     def __init__(self):
-         
+
         self.center = Point()
         self.velocity = Velocity()
         self.restart()
-    
+
     """
     * Creates the virtual ball from an imported arcade class.
     """
+
     def draw(self):
-        
-        arcade.draw_circle_filled(self.center.x, self.center.y, BALL_RADIUS, arcade.color.RED)
-        
+
+        arcade.draw_circle_filled(
+            self.center.x, self.center.y, BALL_RADIUS, arcade.color.RED)
+
     """
     * Controls the balls movement within the window.
     """
+
     def advance(self):
-        
-      self.center.x += self.velocity.dx
-      self.center.y += self.velocity.dy
+
+        self.center.x += self.velocity.dx
+        self.center.y += self.velocity.dy
 
     """
     * The ball will move forward or backward based
     * on the velocity of the ball.
     """
+
     def bounce_horizontal(self):
-        
-            self.velocity.dx *= -1
-            #self.velocity.dx = self.velocity.dx * -1
+
+        self.velocity.dx *= -1
+        #self.velocity.dx = self.velocity.dx * -1
 
     """
     * The ball will move up or down based
     * on the velocity of the ball.
     """
+
     def bounce_vertical(self):
-        
-            self.velocity.dy *= -1 # If the ball moves to close to the
-                                   # boundaries it will then change direction.
-       
+
+        self.velocity.dy *= -1  # If the ball moves to close to the
+        # boundaries it will then change direction.
+
     """
     * Recreates the ball at the starting point for the
     * given x and random y axis'. Values are initalized
     * at this function instead because the values are
     * already given in the pr-existing classes.
     """
+
     def restart(self):
         self.center.y = random.uniform(5, SCREEN_HEIGHT - 5)
         self.center.x = 10
-        self.velocity.dx = random.uniform(2,6) # uniform gives the values listed 
-        self.velocity.dy = random.uniform(2,5) # a floating point #
-        
+        # uniform gives the values listed
+        self.velocity.dx = random.uniform(2, 6)
+        self.velocity.dy = random.uniform(2, 5)  # a floating point #
