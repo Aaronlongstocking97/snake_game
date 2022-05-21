@@ -43,13 +43,6 @@ class Game(arcade.Window):
         self.score = 0
         self.held_keys = set()
 
-        # These are used to see if the user is
-        # holding down the arrow keys
-        # self.holding_down = False
-        # self.holding_up = False
-        # self.holding_left = False
-        # self.holding_right = False
-
         arcade.set_background_color(arcade.color.WHITE)
 
     def on_draw(self):
@@ -63,7 +56,6 @@ class Game(arcade.Window):
 
         # draw each object
         self.food.draw()
-        # self.snake.draw()
         if self.snake.alive == True:
             self.snake.draw()
 
@@ -86,7 +78,6 @@ class Game(arcade.Window):
         """
 
         # Move the food forward one element in time
-        # self.food.advance()
 
         # Check to see if keys are being held, and then
         # take appropriate action
@@ -94,15 +85,9 @@ class Game(arcade.Window):
 
         # check for food at important places
         self.check_miss()
-        self.check_hit()
-        # self.check_bounce()
+        self.check_wall_collisions()
 
-    def check_hit(self):
-        """
-        Checks to see if the food has hit the snake
-        and if so, calls its bounce method.
-        :return:
-        """
+    def check_wall_collisions(self):
 
         too_close_x = (SNAKE_WIDTH / 2) + FOOD_WIDTH
         too_close_y = (SNAKE_HEIGHT / 2) + FOOD_HEIGHT
@@ -111,9 +96,10 @@ class Game(arcade.Window):
             abs(self.food.center.y - self.snake.center.y) < too_close_y and
                 self.food.velocity.dx > 0):
             # we are too close and moving right, this is a hit!
-            # self.food.bounce_horizontal()
             self.score += SCORE_HIT
             self.snake.alive = False
+
+    # def check_food_collisions(self, snake, food):
 
     def check_miss(self):
         """
@@ -124,20 +110,6 @@ class Game(arcade.Window):
             # We missed!
             self.score -= SCORE_MISS
             self.food.restart()
-
-    # def check_bounce(self):
-    #     """
-    #     Checks to see if the food has hit the borders
-    #     of the screen and if so, calls its bounce methods.
-    #     """
-    #     if self.food.center.x < 0 and self.food.velocity.dx < 0:
-    #         self.food.bounce_horizontal()
-
-    #     if self.food.center.y < 0 and self.food.velocity.dy < 0:
-    #         self.food.bounce_vertical()
-
-    #     if self.food.center.y > SCREEN_HEIGHT and self.food.velocity.dy > 0:
-    #         self.food.bounce_vertical()
 
     def check_keys(self):
         """
@@ -156,18 +128,6 @@ class Game(arcade.Window):
         if arcade.key.RIGHT in self.held_keys:
             self.snake.move_right()
 
-        # if self.holding_up:
-        #     self.snake.move_up()
-
-        # if self.holding_down:
-        #     self.snake.move_down()
-
-        # if self.holding_left:
-        #     self.snake.move_left()
-
-        # if self.holding_right:
-        #     self.snake.move_right()
-
     def on_key_press(self, key: int, modifiers: int):
         """
         Called when a key is pressed. Sets the state of
@@ -178,18 +138,6 @@ class Game(arcade.Window):
         if self.snake.alive:
             self.held_keys.add(key)
 
-        # if key == arcade.key.UP:
-        #     self.holding_up = True
-
-        # if key == arcade.key.DOWN:
-        #     self.holding_down = True
-
-        # if key == arcade.key.LEFT:
-        #     self.holding_left = True
-
-        # if key == arcade.key.RIGHT:
-        #     self.holding_right = True
-
     def on_key_release(self, key: int, modifiers: int):
         """
         Called when a key is released. Sets the state of
@@ -199,18 +147,6 @@ class Game(arcade.Window):
         """
         if key in self.held_keys:
             self.held_keys.remove(key)
-
-        # if key == arcade.key.UP:
-        #     self.holding_up = False
-
-        # if key == arcade.key.DOWN:
-        #     self.holding_down = False
-
-        # if key == arcade.key.LEFT:
-        #     self.holding_left = False
-
-        # if key == arcade.key.RIGHT:
-        #     self.holding_right = False
 
 
 window = Game(SCREEN_WIDTH, SCREEN_HEIGHT)  # creates the game window

@@ -12,8 +12,23 @@
                      
 """
 
-SCREEN_WIDTH = 700
-SCREEN_HEIGHT = 500
+# Application window. Size in pixels.
+SCREEN_WIDTH = 400
+SCREEN_HEIGHT = 640
+
+# Game grid system. Cell (one grid square) size in pixels.
+CELL = 16
+COLUMNS = int(SCREEN_WIDTH / CELL)
+ROWS = int(SCREEN_HEIGHT / CELL)
+
+# Padding between the game board & window borders. Units in "cells".
+PADDING = {'left': 1, 'right': 1, 'top': 6, 'bottom': 1}
+
+# Game board edges.
+BOARD_LEFT = PADDING['left'] + 1
+BOARD_RIGHT = COLUMNS - (PADDING['right'])
+BOARD_TOP = ROWS - (PADDING['top'])
+BOARD_BOTTOM = PADDING['bottom'] + 1
 
 FOOD_WIDTH = 10
 FOOD_HEIGHT = 10
