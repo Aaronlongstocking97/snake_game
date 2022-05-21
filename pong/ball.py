@@ -15,7 +15,7 @@
                      
 """
 import random
-from global_ import *
+from global_pong import *
 import arcade
 from point import Point
 from velocity import Velocity

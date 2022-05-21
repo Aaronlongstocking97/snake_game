@@ -24,14 +24,16 @@
 * function name.
 """
 
-from global_ import *
 
+
+
+from global_asteroid import *
 class Point:
 
     def __init__(self):
         self.x = 0.0
         self.y = 0.0
-        
+
     """
     * A decoraded function that checks the value limits
     * listed in the initalizer.
@@ -39,7 +41,7 @@ class Point:
     @property
     def x(self):
         return self._x
-    
+
     """
     * Sets the x-axis so the objects will not leave
     * the screen. Once the value is set it cannot be
@@ -53,7 +55,7 @@ class Point:
             self._x = SCREEN_WIDTH
         else:
             self._x = x
-    
+
     """
     * A decoraded function that checks the value limits
     * listed in the initalizer.
@@ -61,7 +63,7 @@ class Point:
     @property
     def y(self):
         return self._y
-    
+
     """
     * Sets the x-axis so the objects will not leave
     * the screen. Once the value is set it cannot be
@@ -75,7 +77,3 @@ class Point:
             self._y = SCREEN_HEIGHT
         else:
             self._y = y
-    
-    
-    
-    

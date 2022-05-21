@@ -12,7 +12,7 @@
                      
 """
 
-from global_ import *
+from global_asteroid import *
 from point import Point
 from velocity import Velocity
 from abc import ABC
@@ -23,6 +23,8 @@ import arcade
 * This class will set the architecture for other classes and there
 * functionalities. 
 """
+
+
 class FlyingObjects(ABC):
 
     def __init__(self):
@@ -35,9 +37,10 @@ class FlyingObjects(ABC):
     * Passes in the values from the Point and Velocity classes
     * to give the objects movement. 
     """
+
     def advance(self):
-      self.center.x += self.velocity.dx
-      self.center.y += self.velocity.dy
+        self.center.x += self.velocity.dx
+        self.center.y += self.velocity.dy
 
     """
     * A decorated function that cannot be changed unless the abstract
@@ -46,4 +49,3 @@ class FlyingObjects(ABC):
     @abstractmethod
     def draw(self):
         pass
-   

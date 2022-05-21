@@ -17,7 +17,7 @@
                      
 """
 
-from global_ import *
+from global_asteroid import *
 import arcade
 from bullet import Bullet
 from asteroid import Asteroid

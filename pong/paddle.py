@@ -12,7 +12,7 @@
                      
 """
 
-from global_ import *  # Takes in values from the global constants
+from global_pong import *  # Takes in values from the global constants
 import arcade  # Gives the class the ability to make objects
 from point import Point
 

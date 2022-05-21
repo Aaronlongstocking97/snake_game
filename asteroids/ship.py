@@ -17,7 +17,7 @@
 
 import math
 import arcade
-from global_ import *
+from global_asteroid import *
 from flying_objects import FlyingObjects
 
 """
@@ -25,6 +25,8 @@ from flying_objects import FlyingObjects
 * as well as change the angle and velocity that the
 * ship is traveling on. 
 """
+
+
 class Ship(FlyingObjects):
 
     def __init__(self):
@@ -34,58 +36,57 @@ class Ship(FlyingObjects):
         self.speed = SHIP_THRUST_AMOUNT
         self.angle = 90
         self.radius = SHIP_RADIUS
-    
 
     """
     * Creates the ship based on an imported image which takes on
     * multiple controls.
     """
+
     def draw(self):
         img = "playerShip1_orange.png"
         texture = arcade.load_texture(img)
 
         width = texture.width
         height = texture.height
-        alpha = 1 # For transparency, 1 means not transparent
+        alpha = 1  # For transparency, 1 means not transparent
 
         x = self.center.x
         y = self.center.y
         angle = self.angle
 
-        arcade.draw_texture_rectangle(x, y, width, height, texture, angle, alpha)
-        
+        arcade.draw_texture_rectangle(
+            x, y, width, height, texture, angle, alpha)
+
     """
     * Gives the ability for the user to press the right arrow key
     * so they can rotate the ship based on the angle given.
-    """    
+    """
+
     def rotate_right(self):
         self.angle -= SHIP_TURN_AMOUNT
-    
+
     """
     * Gives the ability for the user to press the left arrow key
     * so they can rotate the ship based on the angle given.
     """
+
     def rotate_left(self):
         self.angle += SHIP_TURN_AMOUNT
-          
+
     """
     * Lets the user slow down the ship and uses the down
     * arrow key to move backwards.
-    """      
-    def move_down(self): # Added function
-        self.velocity.dx -= self.speed * math.cos(math.radians(self.angle)) 
+    """
+
+    def move_down(self):  # Added function
+        self.velocity.dx -= self.speed * math.cos(math.radians(self.angle))
         self.velocity.dy -= self.speed * math.sin(math.radians(self.angle))
-    
+
     """
     * Lets the user increase there speed of the ship by
     * pressing the up arrow key. 
     """
-    def increase_speed(self): # Move up
-        self.velocity.dx += self.speed * math.cos(math.radians(self.angle)) 
-        self.velocity.dy += self.speed * math.sin(math.radians(self.angle)) 
-    
 
-       
-    
-        
-              
+    def increase_speed(self):  # Move up
+        self.velocity.dx += self.speed * math.cos(math.radians(self.angle))
+        self.velocity.dy += self.speed * math.sin(math.radians(self.angle))

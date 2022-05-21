@@ -14,13 +14,15 @@
 
 import arcade
 import math
-from global_ import *
+from global_asteroid import *
 from flying_objects import FlyingObjects
 
 """
 * This class will represent a bullet that will be used through
 * the Game class and takes in the global variable for the radius.
 """
+
+
 class Bullet(FlyingObjects):
 
     def __init__(self, ship):
@@ -30,28 +32,31 @@ class Bullet(FlyingObjects):
         self.age = BULLET_LIFE
         self.angle = ship.angle
         self.radius = BULLET_RADIUS
-    
+
     """
     * Takes in the saved image and displays this as the bullet object
     """
+
     def draw(self):
         img = "laserBlue01.png"
         texture = arcade.load_texture(img)
 
         width = texture.width
         height = texture.height
-        alpha = 1 # For transparency, 1 means not transparent
+        alpha = 1  # For transparency, 1 means not transparent
 
         x = self.center.x
         y = self.center.y
         angle = self.angle
 
-        arcade.draw_texture_rectangle(x, y, width, height, texture, angle, alpha)
-    
+        arcade.draw_texture_rectangle(
+            x, y, width, height, texture, angle, alpha)
+
     """
     * Overides the advance from the inherited FlyingObjects class
     * and gives the bullet a life span of sixty seconds.
     """
+
     def advance(self):
         self.age -= 1
         if self.age < 0:
@@ -59,15 +64,13 @@ class Bullet(FlyingObjects):
 
         self.center.x += self.velocity.dx
         self.center.y += self.velocity.dy
-           
+
     """
     * Redefines the Velocities that are inherited through the FlyingObjects
     * class and uses the global BULLET_SPEED to calculate the direction of
     * the objects momentum. 
     """
+
     def fire(self):
         self.velocity.dx = math.cos(math.radians(self.angle)) * BULLET_SPEED
         self.velocity.dy = math.sin(math.radians(self.angle)) * BULLET_SPEED
-        
-            
-        

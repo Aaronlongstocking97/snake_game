@@ -13,7 +13,7 @@
 """
 
 import arcade
-from global_ import *
+from global_asteroid import *
 from asteroid import Asteroid
 from small_asteroid import SmallAsteroid
 
@@ -23,6 +23,8 @@ from small_asteroid import SmallAsteroid
 * for the position in which the asteroid splits apart
 * as well as the velocity the asteroid is traveling at.
 """
+
+
 class MediumAsteroid(Asteroid):
 
     def __init__(self, large_asteroid):
@@ -35,46 +37,49 @@ class MediumAsteroid(Asteroid):
     * Creates the object of a large asteroid through an
     * inported image from the users data file.
     """
-    def draw(self):  
+
+    def draw(self):
         img = "meteorGrey_med1.png"
         texture = arcade.load_texture(img)
 
         width = texture.width
         height = texture.height
-        alpha = 1 # For transparency, 1 means not transparent
+        alpha = 1  # For transparency, 1 means not transparent
 
         x = self.center.x
         y = self.center.y
         angle = self.angle
 
-        arcade.draw_texture_rectangle(x, y, width, height, texture, angle, alpha)
+        arcade.draw_texture_rectangle(
+            x, y, width, height, texture, angle, alpha)
 
     """
     * Once the asteroid is hit it will then split into two small
     * asteroids that will have an inherted velocity from the
     * Medium_asteroid class. 
     """
+
     def hit(self):
-        
+
         self.alive = False
-        
+
         small2 = SmallAsteroid(self)
         small2.velocity.dy = self.velocity.dy + 1.5
         small2.velocity.dx = self.velocity.dx + 1.5
-        
+
         small3 = SmallAsteroid(self)
         small3.velocity.dy = self.velocity.dy - 1.5
         small3.velocity.dx = self.velocity.dx - 1.5
-        
+
         return [small2, small3]
-    
+
     """
     * Overiding the flyingObjects advance function to
     * give the asteroids the ability to rotate based
     * on the asteroids angle. 
-    """  
+    """
+
     def advance(self):
         self.angle += self.rotation
         self.center.x += self.velocity.dx
         self.center.y += self.velocity.dy
-  

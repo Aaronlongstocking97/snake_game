@@ -14,7 +14,7 @@
 """
 
 import random
-from global_ import *
+from global_asteroid import *
 from flying_objects import FlyingObjects
 from abc import ABC
 from abc import abstractmethod
@@ -25,6 +25,8 @@ from abc import abstractmethod
 * the parent class. It will also demonstrate the use of
 * inheritance from objects in the FlyingObjects parent class.
 """
+
+
 class Asteroid(FlyingObjects, ABC):
 
     def __init__(self):
@@ -47,11 +49,7 @@ class Asteroid(FlyingObjects, ABC):
     * A decorated function that cannot be changed unless the abstract
     * methods or properties are overridden. 
     """
-    
+
     @abstractmethod
     def hit(self):
         pass
-
-        
-        
-        
