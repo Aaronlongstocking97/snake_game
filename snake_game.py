@@ -1,12 +1,10 @@
 """
  Program:
-    CS241 Assignment 05, Re-Create the Pong Game
- Instructor:
-    Borther Macbeth
+    Classic Snake Game
  Author:
     Aaron Jones
  Summary: 
-    This program controls the Pong game by mimicking the
+    This program controls the Snake game by mimicking the
     main function. It will activate multiples classes to
     simulate the games design and display to the user
     a window that can be interacted with.
@@ -19,7 +17,7 @@ from fruit import Fruit
 from snake import Snake
 
 
-class Pong(arcade.Window):
+class Game(arcade.Window):
     """
     This class handles all the game callbacks and interaction
     It assumes the following classes exist:
@@ -195,5 +193,5 @@ class Pong(arcade.Window):
             self.holding_right = False
 
 
-window = Pong(SCREEN_WIDTH, SCREEN_HEIGHT)  # creates the game window
+window = Game(SCREEN_WIDTH, SCREEN_HEIGHT)  # creates the game window
 arcade.run()  # Starts the actions listed to run the game
