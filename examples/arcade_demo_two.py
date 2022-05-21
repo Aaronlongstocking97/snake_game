@@ -1,8 +1,6 @@
 """
  Program:
-    CS241 Checkpoint 05A, 
- Instructor:
-    Borther Macbeth
+    Arcade Demo Part 2
  Author:
     Aaron Jones
  Summary: 
@@ -20,8 +18,9 @@ PADDLE_WIDTH = 10
 PADDLE_HEIGHT = 50
 MOVE_AMOUNT = 5
 
+
 class Ball:
-    
+
     def __init__(self):
         ##
         self.box = Box()
@@ -29,84 +28,82 @@ class Ball:
         self.box.x = 10
         self.dx = 3
         self.dy = 3
-        ## override or overloading the constructor.
-        
-
+        # override or overloading the constructor.
 
     def draw(self):
-        
-        arcade.draw_circle_filled(self.box.x, self.box.y, BALL_RADIUS, arcade.color.BLACK)
-      
-      
+
+        arcade.draw_circle_filled(
+            self.box.x, self.box.y, BALL_RADIUS, arcade.color.BLACK)
+
     def bounce_horizontal(self):
-        ##   Think about the relationship between the Pong and Ball
-        ##   what really does the bounce_horizontal function do?
-        ##   Where they send this instrcution to make the ball bounce?
+        # Think about the relationship between the Pong and Ball
+        # what really does the bounce_horizontal function do?
+        # Where they send this instrcution to make the ball bounce?
         if self.box.x < 0:
             self.dx = 3
 
     def bounce_vertical(self):
-        
+
         if self.box.y > SCREEN_HEIGHT - BALL_RADIUS:
             self.dy = -3
         if self.box.y < BALL_RADIUS:
             self.dy = 3
-            
+
     def advance(self):
-        
+
         self.box.x += self.dx
         self.box.y += self.dy
-            
+
+
 class Box:
-    
+
     def __init__(self):
         self.x = 390
         self.y = 150
 
-        
     def draw(self):
         #arcade.draw_rectangle_filled(X-Cordinate, Y-Cordinate, Width, Height, arcade.color)
-        arcade.draw_rectangle_filled(self.x, self.y, PADDLE_WIDTH, PADDLE_HEIGHT, arcade.color.AIR_FORCE_BLUE)
-        
-        
+        arcade.draw_rectangle_filled(
+            self.x, self.y, PADDLE_WIDTH, PADDLE_HEIGHT, arcade.color.AIR_FORCE_BLUE)
+
+
 class DemoApp(arcade.Window):
     """
     This class defines the demo application.
     It produces a rectangle on the screen.
     """
-    
+
     def __init__(self, width, height):
         super().__init__(width, height)
-        
+
         arcade.set_background_color(arcade.color.WHITE)
-        
+
         self.ball = Ball()
         self.box = Box()
         self.holding_left = False
         self.holding_right = False
-        
+
     def on_draw(self):
         """
         Called every time we need to draw the window
         """
-        
+
         arcade.start_render()
         self.ball.draw()
         self.box.draw()
-        
+
     def move_up(self):
-        
+
         if self.box.y < 275:
             self.box.y += MOVE_AMOUNT
             self.holding_left = False
-        
+
     def move_down(self):
-        
+
         if self.box.y >= 25:
             self.box.y -= MOVE_AMOUNT
             self.holding_right = False
-        
-        
+
     def check_keys(self):
         """
         Checks to see if the user is holding down an
@@ -143,8 +140,7 @@ class DemoApp(arcade.Window):
 
         if key == arcade.key.RIGHT or key == arcade.key.UP:
             self.holding_right = False
-  
-          
+
     def update(self, delta_time):
         """
         The purpose of this method is to move everything
@@ -152,7 +148,7 @@ class DemoApp(arcade.Window):
         self.ball.advance()
         self.check_keys()
         self.check_bounce()
-        
+
     def check_bounce(self):
         """
         Checks to see if the ball has hit the borders
@@ -166,11 +162,7 @@ class DemoApp(arcade.Window):
 
         if self.ball.box.y > SCREEN_HEIGHT and self.ball.dy > 0:
             self.ball.bounce_vertical()
-        
+
+
 window = DemoApp(SCREEN_WIDTH, SCREEN_HEIGHT)
 arcade.run()
-        
-        
-        
-        
-        
