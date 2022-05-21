@@ -23,8 +23,8 @@ class Snake:
 
     def __init__(self):
         self.center = Point()
-        self.center.y = SCREEN_HEIGHT - 450
-        self.center.x = SCREEN_WIDTH - 600
+        self.center.y = SCREEN_HEIGHT - 590
+        self.center.x = SCREEN_WIDTH - 300
         self.alive = True
         # defining first 4 blocks of snake body
         # self.snake_body = [[100, 50], [90, 50], [80, 50], [70, 50]]
