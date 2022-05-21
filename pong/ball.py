@@ -15,7 +15,7 @@
                      
 """
 import random
-from global import *
+from global_ import *
 import arcade
 from point import Point
 from velocity import Velocity

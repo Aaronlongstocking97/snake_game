@@ -14,7 +14,7 @@
 """
 import arcade  # Gives the class the ability to make objects
 
-from global import *  # Takes in values from the global constants
+from global_ import *  # Takes in values from the global constants
 from ball import Ball
 from paddle import Paddle
 
