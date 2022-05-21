@@ -1,8 +1,6 @@
 """
  Program:
-    CS241 Assignment 05, Re-Create the Pong Game
- Instructor:
-    Borther Macbeth
+    Snake PyGame Playable Character
  Author:
     Aaron Jones
  Summary: 
@@ -12,9 +10,9 @@
                      
 """
 
-from global_p import *  # Takes in values from the global constants
+from global_ import *  # Takes in values from the global constants
 import arcade  # Gives the class the ability to make objects
-from point_p import Point
+from point import Point
 
 """
 * This class will mimic the Pong game and create
