@@ -41,13 +41,14 @@ class Game(arcade.Window):
         self.food = Food()
         self.snake = Snake()
         self.score = 0
+        self.held_keys = set()
 
         # These are used to see if the user is
         # holding down the arrow keys
-        self.holding_down = False
-        self.holding_up = False
-        self.holding_left = False
-        self.holding_right = False
+        # self.holding_down = False
+        # self.holding_up = False
+        # self.holding_left = False
+        # self.holding_right = False
 
         arcade.set_background_color(arcade.color.WHITE)
 
@@ -62,7 +63,9 @@ class Game(arcade.Window):
 
         # draw each object
         self.food.draw()
-        self.snake.draw()
+        # self.snake.draw()
+        if self.snake.alive == True:
+            self.snake.draw()
 
         self.draw_score()
 
@@ -100,6 +103,7 @@ class Game(arcade.Window):
         and if so, calls its bounce method.
         :return:
         """
+
         too_close_x = (SNAKE_WIDTH / 2) + FOOD_WIDTH
         too_close_y = (SNAKE_HEIGHT / 2) + FOOD_HEIGHT
 
@@ -109,6 +113,7 @@ class Game(arcade.Window):
             # we are too close and moving right, this is a hit!
             # self.food.bounce_horizontal()
             self.score += SCORE_HIT
+            self.snake.alive = False
 
     def check_miss(self):
         """
@@ -139,57 +144,73 @@ class Game(arcade.Window):
         Checks to see if the user is holding down an
         arrow key, and if so, takes appropriate action.
         """
-        if self.holding_up:
+        if arcade.key.UP in self.held_keys:
             self.snake.move_up()
 
-        if self.holding_down:
+        if arcade.key.DOWN in self.held_keys:
             self.snake.move_down()
 
-        if self.holding_left:
+        if arcade.key.LEFT in self.held_keys:
             self.snake.move_left()
 
-        if self.holding_right:
+        if arcade.key.RIGHT in self.held_keys:
             self.snake.move_right()
 
-    def on_key_press(self, key, key_modifiers):
+        # if self.holding_up:
+        #     self.snake.move_up()
+
+        # if self.holding_down:
+        #     self.snake.move_down()
+
+        # if self.holding_left:
+        #     self.snake.move_left()
+
+        # if self.holding_right:
+        #     self.snake.move_right()
+
+    def on_key_press(self, key: int, modifiers: int):
         """
         Called when a key is pressed. Sets the state of
         holding an arrow key.
         :param key: The key that was pressed
         :param key_modifiers: Things like shift, ctrl, etc
         """
+        if self.snake.alive:
+            self.held_keys.add(key)
 
-        if key == arcade.key.UP:
-            self.holding_up = True
+        # if key == arcade.key.UP:
+        #     self.holding_up = True
 
-        if key == arcade.key.DOWN:
-            self.holding_down = True
+        # if key == arcade.key.DOWN:
+        #     self.holding_down = True
 
-        if key == arcade.key.LEFT:
-            self.holding_left = True
+        # if key == arcade.key.LEFT:
+        #     self.holding_left = True
 
-        if key == arcade.key.RIGHT:
-            self.holding_right = True
+        # if key == arcade.key.RIGHT:
+        #     self.holding_right = True
 
-    def on_key_release(self, key, key_modifiers):
+    def on_key_release(self, key: int, modifiers: int):
         """
         Called when a key is released. Sets the state of
         the arrow key as being not held anymore.
         :param key: The key that was pressed
         :param key_modifiers: Things like shift, ctrl, etc
         """
+        if key in self.held_keys:
+            self.held_keys.remove(key)
 
-        if key == arcade.key.UP:
-            self.holding_up = False
+        # if key == arcade.key.UP:
+        #     self.holding_up = False
 
-        if key == arcade.key.DOWN:
-            self.holding_down = False
+        # if key == arcade.key.DOWN:
+        #     self.holding_down = False
 
-        if key == arcade.key.LEFT:
-            self.holding_left = False
+        # if key == arcade.key.LEFT:
+        #     self.holding_left = False
 
-        if key == arcade.key.RIGHT:
-            self.holding_right = False
+        # if key == arcade.key.RIGHT:
+        #     self.holding_right = False
 
 
 window = Game(SCREEN_WIDTH, SCREEN_HEIGHT)  # creates the game window

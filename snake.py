@@ -25,9 +25,10 @@ class Snake:
         self.center = Point()
         self.center.y = SCREEN_HEIGHT - 450
         self.center.x = SCREEN_WIDTH - 600
+        self.alive = True
         # defining first 4 blocks of snake body
-        self.snake_body = [[100, 50], [90, 50], [80, 50], [70, 50]]
-        self.snake_position = [self.center.x, self.center.y]
+        # self.snake_body = [[100, 50], [90, 50], [80, 50], [70, 50]]
+        # self.snake_position = [self.center.x, self.center.y]
 
     """
     * Creates the snake from an imported specific
@@ -36,9 +37,11 @@ class Snake:
 
     def draw(self):
 
-        for pos in self.snake_body:
-            arcade.draw_rectangle_filled(
-                pos[0], pos[1], SNAKE_WIDTH, SNAKE_HEIGHT, arcade.color.BLUE)
+        # for pos in self.snake_body:
+        #     arcade.draw_rectangle_filled(
+        #         pos[0], pos[1], SNAKE_WIDTH, SNAKE_HEIGHT, arcade.color.BLUE)
+        arcade.draw_rectangle_filled(
+            self.center.x, self.center.y, SNAKE_WIDTH, SNAKE_HEIGHT, arcade.color.GREEN)
 
     """
     * Controls the snake by setting the boundaries
@@ -46,7 +49,8 @@ class Snake:
     """
 
     def move_up(self):
-        self.snake_position[1] -= 10
+        # self.snake_position[1] -= 10
+        self.center.y += MOVE_AMOUNT
 
     """
     * Controls the snake by setting the boundaries
@@ -54,7 +58,8 @@ class Snake:
     """
 
     def move_down(self):
-        self.snake_position[1] += 10
+        # self.snake_position[1] += 10
+        self.center.y -= MOVE_AMOUNT
 
     """
     * Controls the snake by setting the boundaries
@@ -62,7 +67,8 @@ class Snake:
     """
 
     def move_left(self):
-        self.snake_position[0] -= 10
+        # self.snake_position[0] -= 10
+        self.center.x -= MOVE_AMOUNT
 
     """
     * Controls the snake by setting the boundaries
@@ -70,4 +76,5 @@ class Snake:
     """
 
     def move_right(self):
-        self.snake_position[0] += 10
+        # self.snake_position[0] += 10
+        self.center.x += MOVE_AMOUNT
