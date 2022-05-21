@@ -1,8 +1,6 @@
 """
  Program:
-    CS241 Assignment 05, Re-Create the Pong Game
- Instructor:
-    Borther Macbeth
+    Pong Arcade Playable Character
  Author:
     Aaron Jones
  Summary: 

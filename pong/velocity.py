@@ -1,8 +1,6 @@
 """
  Program:
-    CS241 Assignment 05, Re-Create the Pong Game
- Instructor:
-    Borther Macbeth
+    Pong Arcade Velocity
  Author:
     Aaron Jones
  Summary: 
@@ -14,11 +12,13 @@
     
 """
 
+
 class Velocity:
-   """
-   * Sets the inital state values
-   * for the Velocity class.
-   """
-   def __init__(self):
+    """
+    * Sets the inital state values
+    * for the Velocity class.
+    """
+
+    def __init__(self):
         self.dx = 0.0
         self.dy = 0.0

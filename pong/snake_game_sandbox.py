@@ -1,12 +1,10 @@
 """
  Program:
-    CS241 Assignment 05, Re-Create the Pong Game
- Instructor:
-    Borther Macbeth
+    Snake PyGame - A 2D Snake Game
  Author:
     Aaron Jones
  Summary: 
-    This program controls the Pong game by mimicking the
+    This program controls the Snake game by mimicking the
     main function. It will activate multiples classes to
     simulate the games design and display to the user
     a window that can be interacted with.
@@ -15,7 +13,7 @@
 import arcade  # Gives the class the ability to make objects
 
 from settings import *  # Takes in values from the global constants
-from food import Fruit
+from food import Food
 from snake import Snake
 
 
@@ -25,7 +23,7 @@ class Pong(arcade.Window):
     It assumes the following classes exist:
         Point
         Velocity
-        Fruit
+        food
         Snake
     This class will then call the appropriate functions of
     each of the above classes.
@@ -41,7 +39,7 @@ class Pong(arcade.Window):
         """
         super().__init__(width, height)
 
-        self.fruit = Fruit()
+        self.food = Food()
         self.snake = Snake()
         self.score = 0
 
@@ -64,7 +62,7 @@ class Pong(arcade.Window):
         arcade.start_render()
 
         # draw each object
-        self.fruit.draw()
+        self.food.draw()
         self.snake.draw()
 
         self.draw_score()
@@ -85,57 +83,57 @@ class Pong(arcade.Window):
         :param delta_time: tells us how much time has actually elapsed
         """
 
-        # Move the fruit forward one element in time
-        # self.fruit.advance()
+        # Move the food forward one element in time
+        # self.food.advance()
 
         # Check to see if keys are being held, and then
         # take appropriate action
         self.check_keys()
 
-        # check for fruit at important places
+        # check for food at important places
         self.check_miss()
         self.check_hit()
         # self.check_bounce()
 
     def check_hit(self):
         """
-        Checks to see if the fruit has hit the snake
+        Checks to see if the food has hit the snake
         and if so, calls its bounce method.
         :return:
         """
-        too_close_x = (SNAKE_WIDTH / 2) + FRUIT_WIDTH
-        too_close_y = (SNAKE_HEIGHT / 2) + FRUIT_HEIGHT
+        too_close_x = (SNAKE_WIDTH / 2) + FOOD_WIDTH
+        too_close_y = (SNAKE_HEIGHT / 2) + FOOD_HEIGHT
 
-        if (abs(self.fruit.center.x - self.snake.center.x) < too_close_x and
-            abs(self.fruit.center.y - self.snake.center.y) < too_close_y and
-                self.fruit.velocity.dx > 0):
+        if (abs(self.food.center.x - self.snake.center.x) < too_close_x and
+            abs(self.food.center.y - self.snake.center.y) < too_close_y and
+                self.food.velocity.dx > 0):
             # we are too close and moving right, this is a hit!
-            # self.fruit.bounce_horizontal()
+            # self.food.bounce_horizontal()
             self.score += SCORE_HIT
 
     def check_miss(self):
         """
-        Checks to see if the fruit went past the snake
+        Checks to see if the food went past the snake
         and if so, restarts it.
         """
-        if self.fruit.center.x > SCREEN_WIDTH:
+        if self.food.center.x > SCREEN_WIDTH:
             # We missed!
             self.score -= SCORE_MISS
-            self.fruit.restart()
+            self.food.restart()
 
     # def check_bounce(self):
     #     """
-    #     Checks to see if the fruit has hit the borders
+    #     Checks to see if the food has hit the borders
     #     of the screen and if so, calls its bounce methods.
     #     """
-    #     if self.fruit.center.x < 0 and self.fruit.velocity.dx < 0:
-    #         self.fruit.bounce_horizontal()
+    #     if self.food.center.x < 0 and self.food.velocity.dx < 0:
+    #         self.food.bounce_horizontal()
 
-    #     if self.fruit.center.y < 0 and self.fruit.velocity.dy < 0:
-    #         self.fruit.bounce_vertical()
+    #     if self.food.center.y < 0 and self.food.velocity.dy < 0:
+    #         self.food.bounce_vertical()
 
-    #     if self.fruit.center.y > SCREEN_HEIGHT and self.fruit.velocity.dy > 0:
-    #         self.fruit.bounce_vertical()
+    #     if self.food.center.y > SCREEN_HEIGHT and self.food.velocity.dy > 0:
+    #         self.food.bounce_vertical()
 
     def check_keys(self):
         """

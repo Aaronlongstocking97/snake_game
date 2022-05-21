@@ -1,8 +1,6 @@
 """
  Program:
-    CS241 Assignment 05, Re-Create the Pong Game
- Instructor:
-    Borther Macbeth
+    Pong Arcade Point
  Author:
     Aaron Jones
  Summary: 
@@ -12,11 +10,13 @@
                      
 """
 
+
 class Point:
     """
     * Sets the inital state values
     * for the Point class.
     """
+
     def __init__(self):
         self.x = 0.0
         self.y = 0.0
