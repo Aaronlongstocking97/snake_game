@@ -1,6 +1,6 @@
 """
  Program:
-    Snake PyGame food object
+    Snake PyGame Food Object
  Author:
     Aaron Jones
  Summary: 
@@ -16,11 +16,11 @@ from point import Point
 """
 * This class will take in values from multiple
 * classes to draw, guide, and increase/decrease
-* the speed of the virtual fruit.
+* the speed of the virtual food.
 """
 
 
-class Fruit:
+class Food:
 
     def __init__(self):
 
@@ -29,16 +29,16 @@ class Fruit:
         self.restart()
 
     """
-    * Creates the virtual fruit from an imported arcade class.
+    * Creates the virtual food from an imported arcade class.
     """
 
     def draw(self):
 
         arcade.draw_rectangle_filled(
-            self.center.x, self.center.y, FRUIT_WIDTH, FRUIT_HEIGHT, arcade.color.RED)
+            self.center.x, self.center.y, FOOD_WIDTH, FOOD_HEIGHT, arcade.color.RED)
 
     """
-    * Controls the fruits movement within the window.
+    * Controls the foods movement within the window.
     """
 
     # def advance(self):
@@ -47,8 +47,8 @@ class Fruit:
     #     self.center.y += self.velocity.dy
 
     """
-    * The fruit will move forward or backward based
-    * on the velocity of the fruit.
+    * The food will move forward or backward based
+    * on the velocity of the food.
     """
 
     # def bounce_horizontal(self):
@@ -57,17 +57,17 @@ class Fruit:
     #     #self.velocity.dx = self.velocity.dx * -1
 
     """
-    * The fruit will move up or down based
-    * on the velocity of the fruit.
+    * The food will move up or down based
+    * on the velocity of the food.
     """
 
     # def bounce_vertical(self):
 
-    #     self.velocity.dy *= -1  # If the fruit moves to close to the
+    #     self.velocity.dy *= -1  # If the food moves to close to the
     #     # boundaries it will then change direction.
 
     """
-    * Recreates the fruit at the starting point for the
+    * Recreates the food at the starting point for the
     * given x and random y axis'. Values are initalized
     * at this function instead because the values are
     * already given in the pr-existing classes.
