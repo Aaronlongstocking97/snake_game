@@ -1,21 +1,14 @@
 """
  Program:
-    CS241 Assignment 05, Re-Create the Pong Game
- Instructor:
-    Borther Macbeth
+    Snake PyGame food object
  Author:
     Aaron Jones
  Summary: 
-    This program will create a virtual fruit that
-    will bounce based on the x and y axis as well
-    as the velocity given. The fruit will stay in
-    the boundaries of the window, but will have
-    the ability to move past the right side of the
-    screen. 
+    
                      
 """
 import random
-from global_ import *
+from settings import *
 import arcade
 from point import Point
 # from velocity_p import Velocity

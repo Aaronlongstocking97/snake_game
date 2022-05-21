@@ -4,13 +4,11 @@
  Author:
     Aaron Jones
  Summary: 
-    This program will implement an object from the
-    imported arcade class. This object will move within
-    the boundaries set by the y axis and move up and down. 
+    
                      
 """
 
-from global_ import *  # Takes in values from the global constants
+from settings import *  # Takes in values from the global constants
 import arcade  # Gives the class the ability to make objects
 from point import Point
 
