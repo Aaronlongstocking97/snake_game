@@ -21,11 +21,12 @@ from point import Point
 
 class Snake:
 
-    def __init__(self):
+    def __init__(self, head_pos=[0, 0]):
         self.center = Point()
         self.center.y = SCREEN_HEIGHT - 590
         self.center.x = SCREEN_WIDTH - 300
         self.alive = True
+        self.head_pos = head_pos
         # defining first 4 blocks of snake body
         # self.snake_body = [[100, 50], [90, 50], [80, 50], [70, 50]]
         # self.snake_position = [self.center.x, self.center.y]

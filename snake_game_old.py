@@ -18,16 +18,7 @@ from snake import Snake
 
 class Game(arcade.Window):
     """
-    This class handles all the game callbacks and interaction
-    It assumes the following classes exist:
-        Point
-        Velocity
-        Food
-        Snake
-    This class will then call the appropriate functions of
-    each of the above classes.
-    You are welcome to modify anything in this class,
-    but should not have to if you don't want to.
+
     """
 
     def __init__(self, width, height):
