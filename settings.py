@@ -1,8 +1,6 @@
 """
  Program:
-    CS241 Assignment 05, Re-Create the Pong Game
- Instructor:
-    Borther Macbeth
+    Snake PyGame Application Window & Game Board Constants
  Author:
     Aaron Jones
  Summary: 
@@ -16,7 +14,7 @@
 
 SCREEN_WIDTH = 700
 SCREEN_HEIGHT = 500
-# FRUIT_RADIUS = 10
+
 FRUIT_WIDTH = 10
 FRUIT_HEIGHT = 10
 
