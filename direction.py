@@ -12,10 +12,10 @@
     
 """
 
-import enum as Enum
+import enum
 
 
-class Direction(Enum):
+class Direction(enum.Enum):
     # Upper case names are used when defining constants
     RIGHT = 1
     LEFT = 2
