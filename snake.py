@@ -4,8 +4,9 @@
  Author:
     Aaron Jones
  Summary: 
-    
-                     
+    This character class will control a snake object
+    that grows in length after eating food & dies after
+    colliding with a wall or their own body.
 """
 
 
@@ -16,18 +17,11 @@ from settings import *
 # Named tuples assign a meaning to each position in a tuple and
 # then they allow for a more readable and more self-documenting code.
 from collections import namedtuple
-pygame.mixer.init()
 # Point object resembels a class.
 # Named tuples can only take two arguments which is why the x and y
 # are combined into one string variable.
 Point = namedtuple('Point', 'x, y')  # lightweight version of a class
 # named tuple has member variables 'x' and 'y' and can be acessed through Point.x or Point.y
-
-"""
-* This class will mimic the Pong game and create
-* a snake that can move up and down the y axis
-* within the set boundaries.
-"""
 
 
 class SnakeGame:
@@ -50,8 +44,6 @@ class SnakeGame:
         self.font = pygame.font.Font('arial.ttf', 25)
         # font = pygame.font.SysFont('arial', 25)  # Taking a font from the system
         # Using a font from a file creates a faster start up time.
-
-        self.crash_sound = pygame.mixer.music.load('crash_sound.mp3')
 
         # Initialize the snake
         # Need to store coordinates inside of the display
@@ -140,6 +132,9 @@ class SnakeGame:
         # This will finalize the move step (step #2).
         if self.head == self.food:  # If the snake catches the food then we increase the score.
             self.score += 1
+            # Added Sound effects
+            eat = pygame.mixer.Sound("food_consumed.wav")
+            pygame.mixer.Sound.play(eat)
             self._place_food()  # Helper function
         else:
             self.snake.pop()  # Removes the last element from the snake.
@@ -156,7 +151,6 @@ class SnakeGame:
             # The first two 'or' statements check to see if the snake hits the left or right boundary.
             # The second two 'or' statements check to see if the snake hits the top or bottom boundaries.
             # If the argument returns 'True' then the snake hit the boundary.
-            pygame.mixer.music.play()
             return True
         # Check to see if the snake hits itself.
         # 'self.snake[1:]:' uses slicing; starts at position one
@@ -166,7 +160,6 @@ class SnakeGame:
         # We only want to check all of the other positions.
         if self.head in self.snake[1:]:
             # If the argument returns 'True' then the snake hit itself.
-            pygame.mixer.music.play()
             return True
 
         # If nothing happens then the snake didn't hit a wall or itself.
@@ -189,7 +182,7 @@ class SnakeGame:
         pygame.draw.rect(self.display, RED, pygame.Rect(
             self.food.x, self.food.y, BLOCK_SIZE, BLOCK_SIZE))  # Same block size as the snake
 
-        # Draw the score in the upper left corner of the  screen.
+        # Draw the score in the upper left corner of the screen.
         text = self.font.render("Score: " + str(self.score), True, WHITE)
         # '[0, 0]' is in the upper left corner of the screen.
         self.display.blit(text, [0, 0])

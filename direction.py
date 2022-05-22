@@ -4,12 +4,10 @@
  Author:
     Aaron Jones
  Summary: 
-    This class will set the intial state values
-    for both x and y velocities. Giving them a
-    floating point value to emphasize that they
-    will be part of a random.uniform system in
-    a seperate class.
-    
+    This class will set the control the movement
+    of the snake. The Directions class uses the enum 
+    to help showcase data that represents a finite set 
+    of states such as days of the week or months of the year.    
 """
 # Enum is a set of symbolic names that are bond to unique values.
 import enum

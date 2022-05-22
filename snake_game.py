@@ -4,8 +4,8 @@
  Author:
     Aaron Jones
  Summary: 
-    This program controls the Snake game by mimicking the
-    main function. It will activate multiples classes to
+    This program controls the Snake game by using the
+    main function. It will activate the snake class to
     simulate the games design and display to the user
     a window that can be interacted with.
                      
@@ -20,6 +20,7 @@ def main():
     # Needed to initialize all the
     # Class modules ('__init__') correctly (Start)
     pygame.init()
+    pygame.mixer.init()
 
     game = SnakeGame()
 
@@ -30,6 +31,9 @@ def main():
 
         # break if game over
         if game_over == True:
+            # Added Sound effects
+            crash = pygame.mixer.Sound("crashed.wav")
+            pygame.mixer.Sound.play(crash)
             break  # Exist the while True Loop
 
     print('Final Score', score)
