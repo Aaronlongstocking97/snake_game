@@ -10,153 +10,241 @@
     a window that can be interacted with.
                      
 """
-import arcade  # Gives the class the ability to make objects
-from settings import *  # Takes in values from the global constants
-from food import Food
-from snake import Snake
+
+import pygame
+import random
+# Enum is a set of symbolic names that are bond to unique values.
+from enum import Enum
+# Named tuples assign a meaning to each position in a tuple and
+# then they allow for a more readable and more self-documenting code.
+from collections import namedtuple
+
+pygame.init()  # Needed to initialize all the Class modules ('__init__') correctly (Start)
+
+font = pygame.font.Font('arial.ttf', 25)  # Taking a font from a file
+# font = pygame.font.SysFont('arial', 25)  # Taking a font from the system
+# Using a font from a file creates a faster start up time.
 
 
-class Game(arcade.Window):
-    """
-    This class handles all the game callbacks and interaction
-    It assumes the following classes exist:
-        Point
-        Velocity
-        Food
-        Snake
-    This class will then call the appropriate functions of
-    each of the above classes.
-    You are welcome to modify anything in this class,
-    but should not have to if you don't want to.
-    """
-
-    def __init__(self, width, height):
-        """
-        Sets up the initial conditions of the game
-        :param width: Screen width
-        :param height: Screen height
-        """
-        super().__init__(width, height)
-
-        self.food = Food()
-        self.snake = Snake()
-        self.score = 0
-        self.held_keys = set()
-
-        arcade.set_background_color(arcade.color.WHITE)
-
-    def on_draw(self):
-        """
-        Called automatically by the arcade framework.
-        Handles the responsiblity of drawing all elements.
-        """
-
-        # clear the screen to begin drawing
-        arcade.start_render()
-
-        # draw each object
-        self.food.draw()
-        if self.snake.alive == True:
-            self.snake.draw()
-
-        self.draw_score()
-
-    def draw_score(self):
-        """
-        Puts the current score on the screen
-        """
-        score_text = "Score: {}".format(self.score)
-        start_x = 10
-        start_y = SCREEN_HEIGHT - 20
-        arcade.draw_text(score_text, start_x=start_x, start_y=start_y,
-                         font_size=12, color=arcade.color.NAVY_BLUE)
-
-    def update(self, delta_time):
-        """
-        Update each object in the game.
-        :param delta_time: tells us how much time has actually elapsed
-        """
-
-        # Move the food forward one element in time
-
-        # Check to see if keys are being held, and then
-        # take appropriate action
-        self.check_keys()
-
-        # check for food at important places
-        self.check_miss()
-        self.check_wall_collisions()
-
-    def check_wall_collisions(self):
-        """Check if the snake has collided with a wall."""
-        if snake.head_pos[0] < settings.BOARD_LEFT:
-            snake.dead = True
-        elif snake.head_pos[0] > settings.BOARD_RIGHT:
-            snake.dead = True
-        elif snake.head_pos[1] > settings.BOARD_TOP:
-            snake.dead = True
-        elif snake.head_pos[1] < settings.BOARD_BOTTOM:
-            snake.dead = True
-
-        too_close_x = (SNAKE_WIDTH / 2) + FOOD_WIDTH
-        too_close_y = (SNAKE_HEIGHT / 2) + FOOD_HEIGHT
-
-        if (abs(self.food.center.x - self.snake.center.x) < too_close_x and
-            abs(self.food.center.y - self.snake.center.y) < too_close_y and
-                self.food.velocity.dx > 0):
-            # we are too close and moving right, this is a hit!
-            self.score += SCORE_HIT
-            self.snake.alive = False
-
-    # def check_food_collisions(self, snake, food):
-
-    def check_miss(self):
-        """
-        Checks to see if the food went past the snake
-        and if so, restarts it.
-        """
-        if self.food.center.x > SCREEN_WIDTH:
-            # We missed!
-            self.score -= SCORE_MISS
-            self.food.restart()
-
-    def check_keys(self):
-        """
-        Checks to see if the user is holding down an
-        arrow key, and if so, takes appropriate action.
-        """
-        if arcade.key.UP in self.held_keys:
-            self.snake.move_up()
-
-        if arcade.key.DOWN in self.held_keys:
-            self.snake.move_down()
-
-        if arcade.key.LEFT in self.held_keys:
-            self.snake.move_left()
-
-        if arcade.key.RIGHT in self.held_keys:
-            self.snake.move_right()
-
-    def on_key_press(self, key: int, modifiers: int):
-        """
-        Called when a key is pressed. Sets the state of
-        holding an arrow key.
-        :param key: The key that was pressed
-        :param key_modifiers: Things like shift, ctrl, etc
-        """
-        if self.snake.alive:
-            self.held_keys.add(key)
-
-    def on_key_release(self, key: int, modifiers: int):
-        """
-        Called when a key is released. Sets the state of
-        the arrow key as being not held anymore.
-        :param key: The key that was pressed
-        :param key_modifiers: Things like shift, ctrl, etc
-        """
-        if key in self.held_keys:
-            self.held_keys.remove(key)
+class Direction(Enum):
+    # Upper case names are used when defining constants
+    RIGHT = 1
+    LEFT = 2
+    UP = 3
+    # Cannot have 'down' with lower case or as a 'string' or a number.
+    DOWN = 4
 
 
-window = Game(SCREEN_WIDTH, SCREEN_HEIGHT)  # creates the game window
-arcade.run()  # Starts the actions listed to run the game
+# Point object resembels a class.
+# Named tuples can only take two arguments which is why the x and y
+# are combined into one string variable.
+Point = namedtuple('Point', 'x, y')  # lightweight version of a class
+# named tuple has member variables 'x' and 'y' and can be acessed through Point.x or Point.y
+
+
+# PyGame rgb colors
+WHITE = (255, 255, 255)  # Global Tuples
+RED = (200, 0, 0)
+BLUE1 = (0, 0, 255)
+BLUE2 = (0, 100, 255)  # Brighter blue
+BLACK = (0, 0, 0)
+
+# Global constants
+BLOCK_SIZE = 20
+SPEED = 20
+
+
+class SnakeGame:
+
+    def __init__(self, width=640, height=480):
+        self.width = width
+        self.height = height
+
+        # inititalize display
+        self.display = pygame.display.set_mode(
+            (self.width, self.height))  # tuple of (width, height)
+        pygame.display.set_caption('Snake')
+        # Used to control the speed of the game.
+        self.clock = pygame.time.Clock()
+
+        # initialize the game state
+        # You could use a string here, but there is room for user typing error
+        # self.direction = "right"
+        self.direction = Direction.RIGHT
+
+        # Initialize the snake
+        # Need to store coordinates inside of the display
+        # We could use a list here with self.head = [w as the x-coordinate, has the y-coordinate]
+        # although this format is proned to error.
+        # self.head = [self.width, self.height]
+        # Point gets x and y coordinates (half of width and half of height)
+        self.head = Point(self.width/2, self.height/2)
+
+        # Create the snake
+        # 'Point(self.head.x' Can only be used because it is a namedtuple.
+        # 'Point(self.head.x-1' We won't use this because we want our snake
+        # to be bigger than one pixel.
+        # Store three coordinates: head,
+        # first Point: x-coordinate but placed to the left with the same y-coordinate,
+        # second Point: x-coordinate shifted two blocks to the left with
+        # the same y-coordinate.
+        self.snake = [self.head,
+                      Point(self.head.x-BLOCK_SIZE, self.head.y),
+                      Point(self.head.x-(2*BLOCK_SIZE), self.head.y)]
+
+        self.score = 0  # Keep track of the score
+        self.food = None
+        # We want to randomaly place the food with this helper function.
+        self._place_food()  # This helper function is a function that performs
+        # part of the computation of another funciton following the
+        # DRY (don't repeat yourself) concept.
+
+    def _place_food(self):  # Helper function
+        # Creating a random coordinate inside x and y dimensions
+        x = random.randint(0, (self.width-BLOCK_SIZE)//BLOCK_SIZE)*BLOCK_SIZE
+        # X has a random integer between zero and the width minus the block size.
+        # '//' Then we want to have multiples of the block size so we divide it
+        # by the block size and get an integer out of it.
+        # '*'  Then its multiplied again by the block size.
+        # This code ('//BLOCK_SIZE)*BLOCK_SIZE') will get a random precision
+        # somewhere in the screen that are multiples of the block size.
+        y = random.randint(0, (self.height-BLOCK_SIZE)//BLOCK_SIZE)*BLOCK_SIZE
+        # After both random variables ('x,y')are created it will try test the
+        # food variable ('self.food') and if it is not inside of the
+        # snake ('if self.food in self.snake') then it will pass.
+        self.food = Point(x, y)
+        if self.food in self.snake:  # Keeps the food from being placed inside the snake.
+            # If the food is in the list then we do the same thing again and call
+            # this function again recursively.
+            self._place_food()
+
+    # place the food and the inital snake
+
+    def play_step(self):
+        # 1. Collect the user input and see what key the user pressed.
+        # This gets all the user event that happend insisde one play step.
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            # If the user pressed a key then we check if its an arrow key.
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    self.direction = Direction.LEFT  # Sets the direction to the left
+                elif event.key == pygame.K_RIGHT:
+                    # Sets the direction to the right.
+                    self.direction = Direction.RIGHT
+                elif event.key == pygame.K_UP:
+                    # Sets the direction upward.
+                    self.direction = Direction.UP
+                elif event.key == pygame.K_DOWN:
+                    # Sets the direction downward.
+                    self.direction = Direction.DOWN
+                # Don't use an 'else' here because this would also be
+                # the case for every other key the user pressed.
+
+        # 2. Move the head of the snake
+        self._move(self.direction)  # Update the head
+        # Insert at the beginning with the new head into the list ('self.snake = []')
+        # We don't use append here because we want to insert at the beginning.
+        self.snake.insert(0, self.head)
+
+        # 3. Check if game is over or if the user quit.
+        game_over = False
+        if self._is_collision():  # Another helper function
+            game_over = True
+            return game_over, self.score  # Here we immediately return
+
+        # 4. Place new food if the snake hits the food or just move the snake.
+        # This will finalize the move step (step #2).
+        if self.head == self.food:  # If the snake catches the food then we increase the score.
+            self.score += 1
+            self._place_food()  # Helper function
+        else:
+            self.snake.pop()  # Removes the last element from the snake.
+
+        # 5. Update the PyGame UI and the clock
+        self._update_ui()
+        self.clock.tick(SPEED)
+        # 6. Return game over and score (needs to be added to the game loop).
+        return game_over, self.score
+
+    def _is_collision(self):
+        # Check to see if the snake hits the boundary.
+        if self.head.x > self.width - BLOCK_SIZE or self.head.x < 0 or self.head.y > self.height - BLOCK_SIZE or self.head.y < 0:
+            # The first two 'or' statements check to see if the snake hits the left or right boundary.
+            # The second two 'or' statements check to see if the snake hits the top or bottom boundaries.
+            # If the argument returns 'True' then the snake hit the boundary.
+            return True
+        # Check to see if the snake hits itself.
+        # 'self.snake[1:]:' uses slicing; starts at position one
+        # and goes all the way to the end because the first one
+        # is the head itself. The head is always in the snake so
+        # that is why we don't check the first position.
+        # We only want to check all of the other positions.
+        if self.head in self.snake[1:]:
+            # If the argument returns 'True' then the snake hit itself.
+            return True
+
+        # If nothing happens then the snake didn't hit a wall or itself.
+        return False
+
+    def _update_ui(self):
+        # Order here is important
+        self.display.fill(BLACK)  # First
+
+        # Draw the snake
+        for pt in self.snake:  # Iterate over all the points
+            pygame.draw.rect(self.display, BLUE1, pygame.Rect(
+                pt.x, pt.y, BLOCK_SIZE, BLOCK_SIZE))  # pt.x and pt.y is accessible
+            # because of the namedtuple. Block size in width and height times two.
+            pygame.draw.rect(self.display, BLUE2,
+                             pygame.Rect(pt.x+4, pt.y+4, 12, 12))
+            # Drawing a slightly smaller rectangle thats placed to the right
+
+        # Draw the food
+        pygame.draw.rect(self.display, RED, pygame.Rect(
+            self.food.x, self.food.y, BLOCK_SIZE, BLOCK_SIZE))  # Same block size as the snake
+
+        # Draw the score in the upper left corner of the  screen.
+        text = font.render("Score: " + str(self.score), True, WHITE)
+        # '[0, 0]' is in the upper left corner of the screen.
+        self.display.blit(text, [0, 0])
+        # Important - Without the code block below we won't see the changes.
+        # Updating the full display surface to the screen.
+        pygame.display.flip()
+
+    def _move(self, direction):
+        x = self.head.x  # Extract the x and the y coordinates
+        y = self.head.y
+        # Direction class uses the Enum values
+        if direction == Direction.RIGHT:  # Examples of possible errors in code
+            # direction == string literals: 'right', "RIGHT", "r".
+            x += BLOCK_SIZE  # Increases the x by the block size.
+        elif direction == Direction.LEFT:
+            x -= BLOCK_SIZE  # Decreases the x by the block size.
+        elif direction == Direction.DOWN:
+            # Increase the y because it starts at zero in the top ('[0, 0 = y value at the top]').
+            y += BLOCK_SIZE
+        elif direction == Direction.UP:
+            y -= BLOCK_SIZE  # Decreases the y by the block size.
+
+        # Create a new head with a new Point that has new x and y values.
+        self.head = Point(x, y)
+
+
+if __name__ == '__main__':
+    game = SnakeGame()
+
+    # game Loop
+    while True:
+
+        game_over, score = game.play_step()
+
+        # break if game over
+        if game_over == True:
+            break  # Exist the while True Loop
+
+    print('Final Score', score)
+
+    pygame.quit()  # (Stop)

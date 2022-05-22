@@ -14,7 +14,7 @@
 import pygame
 import random
 # Enum is a set of symbolic names that are bond to unique values.
-from enum import Enum
+from direction import Direction
 # Named tuples assign a meaning to each position in a tuple and
 # then they allow for a more readable and more self-documenting code.
 from collections import namedtuple
@@ -24,16 +24,6 @@ pygame.init()  # Needed to initialize all the Class modules ('__init__') correct
 font = pygame.font.Font('arial.ttf', 25)  # Taking a font from a file
 # font = pygame.font.SysFont('arial', 25)  # Taking a font from the system
 # Using a font from a file creates a faster start up time.
-
-
-class Direction(Enum):
-    # Upper case names are used when defining constants
-    RIGHT = 1
-    LEFT = 2
-    UP = 3
-    # Cannot have 'down' with lower case or as a 'string' or a number.
-    DOWN = 4
-
 
 # Point object resembels a class.
 # Named tuples can only take two arguments which is why the x and y

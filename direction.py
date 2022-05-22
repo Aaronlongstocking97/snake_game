@@ -1,6 +1,6 @@
 """
  Program:
-    Snake PyGame Velocity
+    Snake PyGame Direction
  Author:
     Aaron Jones
  Summary: 
@@ -12,13 +12,13 @@
     
 """
 
+import enum as Enum
 
-class Velocity:
-    """
-    * Sets the inital state values
-    * for the Velocity class.
-    """
 
-    def __init__(self):
-        self.dx = 0.0
-        self.dy = 0.0
+class Direction(Enum):
+    # Upper case names are used when defining constants
+    RIGHT = 1
+    LEFT = 2
+    UP = 3
+    # Cannot have 'down' with lower case or as a 'string' or a number.
+    DOWN = 4
