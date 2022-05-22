@@ -17,7 +17,9 @@ from snake import SnakeGame
 
 def main():
 
-    pygame.init()  # Needed to initialize all the Class modules ('__init__') correctly (Start)
+    # Needed to initialize all the
+    # Class modules ('__init__') correctly (Start)
+    pygame.init()
 
     game = SnakeGame()
 

@@ -17,10 +17,6 @@ from settings import *
 # then they allow for a more readable and more self-documenting code.
 from collections import namedtuple
 
-font = pygame.font.Font('arial.ttf', 25)  # Taking a font from a file
-# font = pygame.font.SysFont('arial', 25)  # Taking a font from the system
-# Using a font from a file creates a faster start up time.
-
 # Point object resembels a class.
 # Named tuples can only take two arguments which is why the x and y
 # are combined into one string variable.
@@ -34,9 +30,9 @@ Point = namedtuple('Point', 'x, y')  # lightweight version of a class
 """
 
 
-class SnakeGame(font, Point):
+class SnakeGame:
 
-    def __init__(self, font, P: Point):
+    def __init__(self):
 
         # inititalize display
         self.display = pygame.display.set_mode(
@@ -49,6 +45,11 @@ class SnakeGame(font, Point):
         # You could use a string here, but there is room for user typing error
         # self.direction = "right"
         self.direction = Direction.RIGHT
+
+        # Taking a font from a file
+        self.font = pygame.font.Font('arial.ttf', 25)
+        # font = pygame.font.SysFont('arial', 25)  # Taking a font from the system
+        # Using a font from a file creates a faster start up time.
 
         # Initialize the snake
         # Need to store coordinates inside of the display
@@ -185,7 +186,7 @@ class SnakeGame(font, Point):
             self.food.x, self.food.y, BLOCK_SIZE, BLOCK_SIZE))  # Same block size as the snake
 
         # Draw the score in the upper left corner of the  screen.
-        text = font.render("Score: " + str(self.score), True, WHITE)
+        text = self.font.render("Score: " + str(self.score), True, WHITE)
         # '[0, 0]' is in the upper left corner of the screen.
         self.display.blit(text, [0, 0])
         # Important - Without the code block below we won't see the changes.

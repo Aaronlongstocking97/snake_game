@@ -12,6 +12,8 @@
                      
 """
 
+import pygame
+
 # Application window. Size in pixels.
 WIDTH = 640
 HEIGHT = 480
@@ -50,3 +52,5 @@ BLACK = (0, 0, 0)
 # Global constants
 BLOCK_SIZE = 20
 SPEED = 20
+
+crash_sound = pygame.mixer.Sound('crash_sound.wav')
