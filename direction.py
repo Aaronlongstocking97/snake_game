@@ -11,7 +11,7 @@
     a seperate class.
     
 """
-
+# Enum is a set of symbolic names that are bond to unique values.
 import enum
 
 
