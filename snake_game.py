@@ -13,7 +13,6 @@
 
 import pygame
 import random
-# Enum is a set of symbolic names that are bond to unique values.
 from direction import Direction
 # Named tuples assign a meaning to each position in a tuple and
 # then they allow for a more readable and more self-documenting code.
