@@ -16,7 +16,7 @@ from settings import *
 # Named tuples assign a meaning to each position in a tuple and
 # then they allow for a more readable and more self-documenting code.
 from collections import namedtuple
-
+pygame.mixer.init()
 # Point object resembels a class.
 # Named tuples can only take two arguments which is why the x and y
 # are combined into one string variable.
@@ -50,6 +50,8 @@ class SnakeGame:
         self.font = pygame.font.Font('arial.ttf', 25)
         # font = pygame.font.SysFont('arial', 25)  # Taking a font from the system
         # Using a font from a file creates a faster start up time.
+
+        self.crash_sound = pygame.mixer.music.load('crash_sound.mp3')
 
         # Initialize the snake
         # Need to store coordinates inside of the display
@@ -154,6 +156,7 @@ class SnakeGame:
             # The first two 'or' statements check to see if the snake hits the left or right boundary.
             # The second two 'or' statements check to see if the snake hits the top or bottom boundaries.
             # If the argument returns 'True' then the snake hit the boundary.
+            pygame.mixer.music.play()
             return True
         # Check to see if the snake hits itself.
         # 'self.snake[1:]:' uses slicing; starts at position one
@@ -163,6 +166,7 @@ class SnakeGame:
         # We only want to check all of the other positions.
         if self.head in self.snake[1:]:
             # If the argument returns 'True' then the snake hit itself.
+            pygame.mixer.music.play()
             return True
 
         # If nothing happens then the snake didn't hit a wall or itself.
