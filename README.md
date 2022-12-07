@@ -8,9 +8,7 @@ The game that I wrote is the snake game. This game involves controlling a single
 
 I created this software because I wanted to test my skills in programming to see if I could make a well-known game that I used to play.
 
-{Your YouTube demonstration should be a 4-5 minute demo of the game being played and a walkthrough of the code.}
-
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/wbixXS8pKew)
 
 # Development Environment
 
