@@ -20,7 +20,6 @@ def main():
     # Needed to initialize all the
     # Class modules ('__init__') correctly (Start)
     pygame.init()
-    pygame.mixer.init()
 
     game = SnakeGame()
 
