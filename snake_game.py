@@ -27,14 +27,14 @@ def main():
     # game Loop
     while True:
 
-        game_over, score = game.play_step()
+        game_over, score = game.event_handler()
 
         # break if game over
         if game_over == True:
             # Added Sound effects
-            crash = pygame.mixer.Sound("crashed.wav")
-            pygame.mixer.Sound.play(crash)
-            break  # Exist the while True Loop
+            # pygame.mixer.Sound("crashed.wav").play()
+            print("Game over")
+            break  # Exit the while True Loop
 
     print('Final Score', score)
 

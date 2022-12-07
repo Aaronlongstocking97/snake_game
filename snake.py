@@ -93,9 +93,9 @@ class SnakeGame:
 
     # place the food and the inital snake
 
-    def play_step(self):
+    def event_handler(self):
         # 1. Collect the user input and see what key the user pressed.
-        # This gets all the user event that happend insisde one play step.
+        # This gets all the user event that happend insisde one the event handler.
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -133,8 +133,7 @@ class SnakeGame:
         if self.head == self.food:  # If the snake catches the food then we increase the score.
             self.score += 1
             # Added Sound effects
-            eat = pygame.mixer.Sound("food_consumed.wav")
-            pygame.mixer.Sound.play(eat)
+            pygame.mixer.Sound("food_consumed.wav").play()
             self._place_food()  # Helper function
         else:
             self.snake.pop()  # Removes the last element from the snake.
